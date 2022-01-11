@@ -7,7 +7,6 @@ class ContactController {
     const contacts = await ContactsRepository.findAll(orderBy);
 
     response.json(contacts);
-    // response.send(request.appId);
   }
 
   async show(request, response) {
@@ -45,7 +44,7 @@ class ContactController {
       name, email, phone, category_id,
     });
 
-    response.json(contact);
+    response.status(201).json(contact);
   }
 
   async update(request, response) {
@@ -58,7 +57,7 @@ class ContactController {
     const contactExists = await ContactsRepository.findById(id);
 
     if (!contactExists) {
-      return response.status(404).json({ error: 'contact not found' });
+      return response.status(404).json({ error: 'Contact not found' });
     }
 
     if (!name) {
@@ -74,8 +73,6 @@ class ContactController {
     const contact = await ContactsRepository.update(id, {
       name, email, phone, category_id,
     });
-
-    console.log(contact);
 
     response.json(contact);
   }
